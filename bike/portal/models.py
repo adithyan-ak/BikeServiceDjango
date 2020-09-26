@@ -10,7 +10,11 @@ class Service(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
 
-    servicedate = models.DateTimeField()
+    servicedate = models.DateField()
+
+    vehiclenum = models.TextField(max_length=100, blank=True)
+
+    manufacturer = models.TextField(max_length=100, blank=True)
 
     stype = models.TextField(max_length=100, blank=True)
 
@@ -22,7 +26,7 @@ class Service(models.Model):
 
 
     def __str__(self):
-        return f'{self.user.username}'
+        return f'{self.vehiclenum + " " + self.user.get_full_name()}'
 
 class Servicetype(models.Model):
 

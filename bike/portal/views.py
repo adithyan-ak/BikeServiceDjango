@@ -10,7 +10,7 @@ from django.contrib.auth.models import User, auth
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
 from .forms import SignUpForm
-from .models import Servicetype
+from .models import Servicetype, Service
 
 
 def index(request):
@@ -31,6 +31,46 @@ def dashboard(request):
         manufacturer = request.POST['manufacturer']
 
         servicedate = request.POST['servicedate']
+
+        serviceupdate = Service()
+        serviceupdate.servicedate = servicedate
+        serviceupdate.stype = stype
+        serviceupdate.vehiclenum = vehiclenum
+        serviceupdate.manufacturer = manufacturer
+        serviceupdate.user = request.user
+        serviceupdate.save()
+
+        return render(request, 'dashboard.html',{'success':'success'})
+
+def service(request):
+    
+    if request.method == 'GET':
+
+        services = list(Service.objects.values().filter(user=request.user))
+
+        return render(request, 'service.html',{'services':services})
+
+    if request.method == 'POST':
+        stype = request.POST['stype']
+
+        vehiclenum = request.POST['vehiclenum']
+
+        manufacturer = request.POST['manufacturer']
+
+        servicedate = request.POST['servicedate']
+
+        serviceupdate = Service()
+        serviceupdate.servicedate = servicedate
+        serviceupdate.stype = stype
+        serviceupdate.vehiclenum = vehiclenum
+        serviceupdate.manufacturer = manufacturer
+        serviceupdate.user = request.user
+        serviceupdate.save()
+
+
+        services = list(Service.objects.values().filter(user=request.user))
+
+        return render(request, 'service.html',{'services':services, 'success':'success'})
 
 
 def Login(request):

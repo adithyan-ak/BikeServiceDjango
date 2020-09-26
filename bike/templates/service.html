@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+{% if success %}
+
+<script>
+swal("Success!", "The service has been booked!", "success");
+</script>
+
+{% endif %}
+
+<br>
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">vehcile Number</th>
+        <th scope="col">Service Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Completed</th>
+        <th scope="col">Ready2Deliver</th>
+      </tr>
+    </thead>
+    <tbody>
+
+ {% for service in services %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{service.vehiclenum}}</td>
+        <td>{{service.servicedate}}</td>
+        <td>{{service.status}}</td>
+        <td>{{service.completed}}</td>
+        <td>{{service.readytodeliver}}</td>
+    </tr>
+ {% endfor %}
+
+    </tbody>
+  </table>
+
+{% endblock %}
