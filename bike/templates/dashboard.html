@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="row">
+    {% for service in services %}
+            <div class="column">
+            <div class="card" style="width: 18rem;">
+                <img src="https://images.livemint.com/img/2019/10/08/600x338/2019-10-07T102129Z_1_LYNXMPEF960L5_RTROPTP_3_HARLEY-DAVIDSON-ELECTRICBIKE_1570505064296_1570505080774.JPG" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{service.name}}</h5>
+                    <p class="card-text">{{service.description}}</p>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Schedule</button>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Schedule the service</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="" method="POST"> {% csrf_token %}
+                            <input type="hidden" name="stype" value={{service.stype}}>
+                            <div class="form-group">
+                              <label for="recipient-name" class="col-form-label">Bike Manufacturer:</label>
+                              <input type="text" name="manufacturer" class="form-control" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                              <label for="message-text" class="col-form-label">Vehicle Number:</label>
+                              <input type="text" name="vehiclenum" class="form-control" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <input type="text" name="servicedate" placeholder="Pick a date for service" class="form-control">
+                                </div>
+                            </div>
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Schedule</button>
+                        </div>
+                    </form>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            </div>
+            {% endfor %}
+</div>
+
+
+
+{% endblock %}
