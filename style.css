@@ -1,4 +1,6 @@
-div.portfoliocard div.left_col, div.portfoliocard div.right_col{
+body{
+} 
+  div.portfoliocard div.left_col, div.portfoliocard div.right_col{
       float:left;
       height:340px;
   }
